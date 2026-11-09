@@ -1,0 +1,21 @@
+{% extends 'tours/base.html' %}
+{% block content %}
+  <h1>Туры</h1>
+  <p>
+    Категории:
+    <a href="{% url 'tours:list' %}">Все</a>
+    {% for c in categories %}
+      | <a href="{% url 'tours:list' %}?category={{ c.pk }}">{{ c.name }}</a>
+    {% endfor %}
+  </p>
+  {% if current_category %}<p>Выбрана категория: <b>{{ current_category.name }}</b></p>{% endif %}
+  {% for tour in tours %}
+    <div>
+      <h3><a href="{{ tour.get_absolute_url }}">{{ tour.title }}</a></h3>
+      {% for c in tour.categories.all %}<span class="tag">{{ c.name }}</span> {% endfor %}
+      <p>{{ tour.price }} сом · {{ tour.duration_hours }} ч</p>
+    </div>
+  {% empty %}
+    <p>Туров нет.</p>
+  {% endfor %}
+{% endblock %}

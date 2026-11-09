@@ -1,0 +1,6 @@
+{% extends 'tours/base.html' %}
+{% block content %}
+  <h1>Покупка тура «{{ tour.title }}»</h1>
+  <form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">Купить</button></form>
+  <p><a href="{{ tour.get_absolute_url }}">Отмена</a></p>
+{% endblock %}

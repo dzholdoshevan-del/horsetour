@@ -1,0 +1,15 @@
+{% extends 'tours/base.html' %}
+{% block content %}
+  <h1>Мои туры</h1>
+  {% for b in bookings %}
+    <div>
+      <b><a href="{{ b.tour.get_absolute_url }}">{{ b.tour.title }}</a></b>
+      — {{ b.date|date:"d.m.Y" }} в {{ b.time|time:"H:i" }}
+      <form method="post" action="{% url 'tours:cancel_booking' b.pk %}" style="display:inline">
+        {% csrf_token %}<button type="submit">Отменить</button>
+      </form>
+    </div>
+  {% empty %}
+    <p>Вы пока не купили ни одного тура.</p>
+  {% endfor %}
+{% endblock %}
